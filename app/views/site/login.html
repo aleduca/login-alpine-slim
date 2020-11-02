@@ -1,0 +1,32 @@
+{% extends "site/master.html" %} {% block content %}
+
+<h2>login</h2>
+
+<div x-data="login()">
+
+    <template x-if="loading">
+        <div>Aguarde, estamos fazendo o login</div>
+    </template>
+
+    <span x-bind:class="message('logged','success').type" x-text="message('logged').message"></span>
+    <span x-bind:class="message('error_login').type" x-text="message('error_login').message"></span>
+
+    <form action="/login" method="post" @submit.prevent="login" x-show="!loading">
+        <input type="text" name="email" class="form-control" placeholder="seu email" x-model="form.email" />
+        <span x-bind:class="message('email').type" x-text="message('email').message"></span>
+        <br />
+        <input type="password" name="password" class="form-control" placeholder="sua senha" x-model="form.password" />
+        <span x-bind:class="message('password').type" x-text="message('password').message"></span>
+
+        <button type="submit" class="btn btn-info" id="btn-create">Logar</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="./assets/site/login.js"></script>
+{% endblock %}
